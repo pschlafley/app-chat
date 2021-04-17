@@ -4,7 +4,12 @@
 	"description": "React chat application using websockets and graphql subscriptions",
 	"main": "server.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+		"start:prod": "cd server && npm start",
+		"start:dev": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
+		"install": "cd server && npm i && cd ../client && npm i",
+		"seed": "cd server && npm run seed",
+		"heroku-postbuild": "cd client && npm run build"
 	},
 	"repository": {
 		"type": "git",
@@ -15,5 +20,16 @@
 	"bugs": {
 		"url": "https://github.com/pschlafley/app-chat/issues"
 	},
-	"homepage": "https://github.com/pschlafley/app-chat#readme"
+	"homepage": "https://github.com/pschlafley/app-chat#readme",
+	"dependencies": {
+		"apollo-server-express": "^2.23.0",
+		"create-react-app": "^4.0.3",
+		"express": "^4.17.1",
+		"http": "*",
+		"if-env": "^1.0.4",
+		"mongoose": "^5.12.4"
+	},
+	"devDependencies": {
+		"concurrently": "^6.0.2"
+	}
 }
